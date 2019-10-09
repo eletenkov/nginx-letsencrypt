@@ -7,7 +7,7 @@ ADD script/letsencrypt.sh /letsencrypt.sh
 
 RUN \
  rm /etc/nginx/conf.d/default.conf && \
- chmod +x /entrypoint.sh && \
+ chmod +x /sbin/entrypoint.sh && \
  chmod +x /letsencrypt.sh && \
  apk add  --update certbot tzdata openssl && \
  rm -rf /var/cache/apk/*
