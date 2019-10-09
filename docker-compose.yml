@@ -1,0 +1,24 @@
+version: "2"
+services:
+  nginx:
+    build: .
+    image: letenkov/nginx-letsencrypt:latest
+    hostname: nginx
+    restart: always
+    container_name: nginx
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    volumes:
+      - ./etc/ssl:/etc/nginx/ssl
+      - ./etc/example.conf:/etc/nginx/service.conf
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - TZ=Europe/Moscow
+      - LETSENCRYPT=true
+      - LETSENCRYPT_EMAIL=name@example.com
+      - LETSENCRYPT_FQDN=www.example.com
