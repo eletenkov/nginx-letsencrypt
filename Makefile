@@ -11,3 +11,6 @@ logs:
 
 push:
 	@docker push eletenkov/nginx-letsencrypt:latest
+
+rmi:
+	@docker-compose down --rmi all
