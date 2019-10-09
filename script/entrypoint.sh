@@ -6,7 +6,7 @@ cp /usr/share/zoneinfo/${TZ} /etc/localtime && \
 echo ${TZ} > /etc/timezone && \
 
 #setup ssl keys
-echo "ssl_key=${SSL_KEY:=le-key.pem}, ssl_cert=${SSL_CERT:=le-crt.pem}, ssl_chain_cert=${SSL_CHAIN_CERT:=le-chain-crt.pem}"
+echo "ssl_key=${SSL_KEY:=letsencrypt-key.pem}, ssl_cert=${SSL_CERT:=letsencrypt-crt.pem}, ssl_chain_cert=${SSL_CHAIN_CERT:=letsencrypt-chain-crt.pem}"
 SSL_KEY=/etc/nginx/ssl/${SSL_KEY}
 SSL_CERT=/etc/nginx/ssl/${SSL_CERT}
 SSL_CHAIN_CERT=/etc/nginx/ssl/${SSL_CHAIN_CERT}
