@@ -3,7 +3,7 @@
 # scripts is trying to renew certificate only if close (30 days) to expiration
 # returns 0 only if certbot called.
 
-target_cert=/etc/nginx/ssl/le-crt.pem
+target_cert=/etc/nginx/ssl/letsencrypt-crt.pem
 # 30 days
 renew_before=2592000
 
@@ -31,14 +31,15 @@ fi
 
 echo "letsencrypt certificate will expire soon or missing, renewing..."
 certbot certonly -t -n --agree-tos --renew-by-default --email "${LETSENCRYPT_EMAIL}" --webroot -w /usr/share/nginx/html -d ${LETSENCRYPT_FQDN}
-le_result=$?
-if [ ${le_result} -ne 0 ]; then
+result=$?
+if [ ${result} -ne 0 ]; then
     echo "failed to run certbot"
     return 1
 fi
 
 FIRST_FQDN=$(echo "$LETSENCRYPT_FQDN" | cut -d"," -f1)
-cp -fv /etc/letsencrypt/live/${FIRST_FQDN}/privkey.pem /etc/nginx/ssl/le-key.pem
+target_cert=/etc/nginx/ssl/letsencrypt-crt.pem
+cp -fv /etc/letsencrypt/live/${FIRST_FQDN}/privkey.pem /etc/nginx/ssl/letsencrypt-key.pem
 cp -fv /etc/letsencrypt/live/${FIRST_FQDN}/fullchain.pem ${target_cert}
-cp -fv /etc/letsencrypt/live/${FIRST_FQDN}/chain.pem /etc/nginx/ssl/le-chain-crt.pem
+cp -fv /etc/letsencrypt/live/${FIRST_FQDN}/chain.pem /etc/nginx/ssl/letsencrypt-chain-crt.pem
 return 0
